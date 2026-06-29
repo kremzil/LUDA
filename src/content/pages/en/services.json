@@ -1,0 +1,24 @@
+{
+  "locale": "en",
+  "translationKey": "services",
+  "seo": {
+    "title": "Services | LUDA.AI",
+    "description": "Workflow automation, document systems and responsible AI implementation for legal teams."
+  },
+  "title": "Digital systems built around legal work.",
+  "intro": "We start with the way your team actually works, then design technology that removes friction without adding unnecessary complexity.",
+  "sections": [
+    {
+      "title": "Legal workflow automation",
+      "body": "We map repetitive work, handoffs and approvals, then automate the parts that slow teams down while keeping people in control."
+    },
+    {
+      "title": "Document and knowledge systems",
+      "body": "We structure documents, precedents and internal knowledge so information is easier to find, maintain and use with confidence."
+    },
+    {
+      "title": "AI readiness and implementation",
+      "body": "We identify useful, responsible AI applications and help teams move from experimentation to governed, measurable use."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "locale": "sk",
+  "translationKey": "services",
+  "seo": {
+    "title": "Služby | LUDA.AI",
+    "description": "Automatizácia procesov, dokumentové systémy a zodpovedné zavádzanie AI pre právne tímy."
+  },
+  "title": "Digitálne systémy postavené na reálnej právnej práci.",
+  "intro": "Najprv pochopíme, ako váš tím skutočne pracuje. Potom navrhneme technológiu, ktorá odstráni prekážky bez zbytočnej zložitosti.",
+  "sections": [
+    {
+      "title": "Automatizácia právnych procesov",
+      "body": "Mapujeme opakovanú prácu, odovzdávanie úloh a schvaľovanie. Automatizujeme to, čo tím spomaľuje, pričom ľudia zostávajú pod kontrolou."
+    },
+    {
+      "title": "Dokumentové a znalostné systémy",
+      "body": "Štruktúrujeme dokumenty, vzory a interné know-how tak, aby sa informácie dali jednoducho nájsť, spravovať a spoľahlivo používať."
+    },
+    {
+      "title": "Pripravenosť na AI a implementácia",
+      "body": "Hľadáme užitočné a zodpovedné možnosti využitia AI a pomáhame tímom prejsť od experimentov k riadenému a merateľnému používaniu."
+    }
+  ]
+}

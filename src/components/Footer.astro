@@ -1,0 +1,45 @@
+---
+import { labels, localPath, site, type Locale } from '../lib/site';
+const { locale } = Astro.props as { locale: Locale };
+const t = labels[locale];
+---
+
+<footer class="site-footer">
+  <div class="container footer-main">
+    <div>
+      <a class="footer-brand" href={localPath(locale)}>{site.name}</a>
+      <p>{site.tagline}</p>
+    </div>
+    <nav aria-label="Footer navigation">
+      <a href={localPath(locale, 'services')}>{t.services}</a>
+      <a href={localPath(locale, 'about')}>{t.about}</a>
+      <a href={localPath(locale, 'insights')}>{t.insights}</a>
+      <a href={localPath(locale, 'contact')}>{t.contact}</a>
+    </nav>
+    <div class="footer-contact">
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+      <a href={localPath(locale, 'privacy')}>{locale === 'en' ? 'Privacy' : 'Ochrana súkromia'}</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <div><a href={site.primaryDomain}>ludasolutions.ai</a><a href={site.secondaryDomain}>ludasolutions.eu</a></div>
+    <span>© {new Date().getFullYear()} {site.legalName}</span>
+  </div>
+</footer>
+
+<style>
+  .site-footer { border-top: 1px solid var(--line); background: var(--paper); }
+  .footer-main { display: grid; grid-template-columns: 1.5fr .7fr 1fr; gap: 48px; padding-block: 54px; }
+  .footer-brand { color: var(--ink); font-family: var(--display); font-size: 2rem; }
+  p { margin: 2px 0 0; color: var(--muted); font-size: .85rem; }
+  nav, .footer-contact { display: flex; flex-direction: column; gap: 8px; font-size: .86rem; }
+  .footer-contact { align-items: flex-end; }
+  .footer-bottom { display: flex; justify-content: space-between; gap: 24px; padding-block: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: .76rem; }
+  .footer-bottom div { display: flex; gap: 24px; }
+  @media (max-width: 700px) {
+    .footer-main { grid-template-columns: 1fr 1fr; }
+    .footer-contact { align-items: flex-start; }
+    .footer-main > div:first-child { grid-column: 1 / -1; }
+    .footer-bottom { flex-direction: column; }
+  }
+</style>

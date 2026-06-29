@@ -1,0 +1,24 @@
+{
+  "locale": "sk",
+  "translationKey": "about",
+  "seo": {
+    "title": "O nás | LUDA.AI",
+    "description": "Európsky tím prepájajúci porozumenie právu s praktickou technológiou."
+  },
+  "title": "Porozumenie právu premenené na užitočnú technológiu.",
+  "intro": "LUDA.AI je európska digitálna konzultačná spoločnosť zameraná na systémy, informácie a nástroje modernej právnej práce.",
+  "sections": [
+    {
+      "title": "Praktický návrh",
+      "body": "Uprednostňujeme zrozumiteľné a udržateľné riešenia pred technológiou pre technológiu. Každé odporúčanie musí podporovať reálny proces a zodpovedný obchodný výsledok."
+    },
+    {
+      "title": "Práca v partnerstve",
+      "body": "Úzko spolupracujeme s právnymi a prevádzkovými tímami a spájame ich odborné znalosti so systematickým produktovým a technologickým prístupom."
+    },
+    {
+      "title": "Zodpovednosť od začiatku",
+      "body": "Bezpečnosť, riadenie, prijatie používateľmi a dlhodobé vlastníctvo riešime od začiatku, nie až po odovzdaní."
+    }
+  ]
+}

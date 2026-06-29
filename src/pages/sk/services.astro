@@ -1,0 +1,6 @@
+---
+import ContentPage from '../../components/ContentPage.astro';
+import { getPage } from '../../lib/content';
+const page = await getPage('sk', 'services');
+---
+<ContentPage locale="sk" page={page} alternatePath="/services/" />

@@ -1,0 +1,24 @@
+{
+  "locale": "en",
+  "translationKey": "about",
+  "seo": {
+    "title": "About | LUDA.AI",
+    "description": "A European team connecting legal understanding with practical technology."
+  },
+  "title": "Legal understanding, translated into useful technology.",
+  "intro": "LUDA.AI is a European digital consultancy focused on the systems, information and tools behind modern legal work.",
+  "sections": [
+    {
+      "title": "Practical by design",
+      "body": "We favour clear, maintainable solutions over technology for its own sake. Every recommendation must support a real workflow and a responsible business outcome."
+    },
+    {
+      "title": "Built in partnership",
+      "body": "We work closely with legal and operational teams, combining their domain knowledge with structured product and technology expertise."
+    },
+    {
+      "title": "Responsible from the start",
+      "body": "Security, governance, adoption and long-term ownership are considered from the beginning, not added after delivery."
+    }
+  ]
+}

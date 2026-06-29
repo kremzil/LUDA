@@ -1,0 +1,6 @@
+---
+import InsightsPage from '../../../components/InsightsPage.astro';
+import { getPublishedInsights } from '../../../lib/content';
+const entries = await getPublishedInsights('sk');
+---
+<InsightsPage locale="sk" entries={entries} />

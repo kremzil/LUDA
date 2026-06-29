@@ -1,0 +1,138 @@
+media:
+  input: public/uploads
+  output: /uploads
+
+content:
+  - name: home_en
+    label: Home — English
+    type: file
+    path: src/content/pages/en/home.json
+    fields:
+      - { name: locale, type: string, hidden: true, default: en }
+      - { name: translationKey, type: string, hidden: true, default: home }
+      - name: seo
+        type: object
+        fields:
+          - { name: title, type: string, label: SEO title }
+          - { name: description, type: text, label: SEO description }
+      - name: hero
+        type: object
+        fields:
+          - { name: title, type: string }
+          - { name: intro, type: text }
+          - { name: primaryCta, type: string, label: Primary button }
+          - { name: secondaryCta, type: string, label: Secondary link }
+
+  - name: home_sk
+    label: Domov — Slovensky
+    type: file
+    path: src/content/pages/sk/home.json
+    fields:
+      - { name: locale, type: string, hidden: true, default: sk }
+      - { name: translationKey, type: string, hidden: true, default: home }
+      - name: seo
+        type: object
+        fields:
+          - { name: title, type: string, label: SEO title }
+          - { name: description, type: text, label: SEO description }
+      - name: hero
+        type: object
+        fields:
+          - { name: title, type: string }
+          - { name: intro, type: text }
+          - { name: primaryCta, type: string, label: Primary button }
+          - { name: secondaryCta, type: string, label: Secondary link }
+
+  - name: pages_en
+    label: Pages — English
+    type: collection
+    path: src/content/pages/en
+    exclude: [home.json]
+    filename: "{primary}.json"
+    view:
+      fields: [title, translationKey]
+      primary: title
+    fields:
+      - { name: locale, type: string, hidden: true, default: en }
+      - { name: translationKey, type: string, label: Translation key }
+      - name: seo
+        type: object
+        fields:
+          - { name: title, type: string, label: SEO title }
+          - { name: description, type: text, label: SEO description }
+      - { name: title, type: string }
+      - { name: intro, type: text }
+      - name: sections
+        type: object
+        list: true
+        fields:
+          - { name: title, type: string }
+          - { name: body, type: text }
+
+  - name: pages_sk
+    label: Stránky — Slovensky
+    type: collection
+    path: src/content/pages/sk
+    exclude: [home.json]
+    filename: "{primary}.json"
+    view:
+      fields: [title, translationKey]
+      primary: title
+    fields:
+      - { name: locale, type: string, hidden: true, default: sk }
+      - { name: translationKey, type: string, label: Translation key }
+      - name: seo
+        type: object
+        fields:
+          - { name: title, type: string, label: SEO title }
+          - { name: description, type: text, label: SEO description }
+      - { name: title, type: string }
+      - { name: intro, type: text }
+      - name: sections
+        type: object
+        list: true
+        fields:
+          - { name: title, type: string }
+          - { name: body, type: text }
+
+  - name: insights_en
+    label: Insights — English
+    type: collection
+    path: src/content/insights/en
+    filename: "{fields.slug}.md"
+    view:
+      fields: [title, status, publishedAt]
+      primary: title
+    fields:
+      - { name: locale, type: string, hidden: true, default: en }
+      - { name: translationKey, type: string, label: Translation key }
+      - { name: slug, type: string }
+      - { name: title, type: string }
+      - { name: description, type: text }
+      - { name: publishedAt, type: date, label: Published at }
+      - name: status
+        type: select
+        options:
+          values: [draft, published]
+      - { name: body, type: rich-text }
+
+  - name: insights_sk
+    label: Články — Slovensky
+    type: collection
+    path: src/content/insights/sk
+    filename: "{fields.slug}.md"
+    view:
+      fields: [title, status, publishedAt]
+      primary: title
+    fields:
+      - { name: locale, type: string, hidden: true, default: sk }
+      - { name: translationKey, type: string, label: Translation key }
+      - { name: slug, type: string }
+      - { name: title, type: string }
+      - { name: description, type: text }
+      - { name: publishedAt, type: date, label: Published at }
+      - name: status
+        type: select
+        options:
+          values: [draft, published]
+      - { name: body, type: rich-text }

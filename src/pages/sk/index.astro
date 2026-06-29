@@ -1,0 +1,6 @@
+---
+import HomePage from '../../components/HomePage.astro';
+import { getPage, getPublishedInsights } from '../../lib/content';
+const [page, insights] = await Promise.all([getPage('sk', 'home'), getPublishedInsights('sk')]);
+---
+<HomePage locale="sk" page={page} insights={insights} />

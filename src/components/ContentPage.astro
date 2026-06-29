@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { labels, site, type Locale } from '../lib/site';
+
+const { locale, page, alternatePath } = Astro.props as {
+  locale: Locale;
+  page: CollectionEntry<'pages'>;
+  alternatePath: string;
+};
+const isContact = page.data.translationKey === 'contact';
+const t = labels[locale];
+---
+
+<BaseLayout locale={locale} title={page.data.seo.title} description={page.data.seo.description} alternatePath={alternatePath}>
+  <header class="page-hero">
+    <div class="container">
+      <h1 class="display title-lg">{page.data.title}</h1>
+      <p class="lede">{page.data.intro}</p>
+    </div>
+  </header>
+  {page.data.sections && <section class="section">
+    <div class="container content-sections">
+      <div aria-hidden="true"></div>
+      <div class="content-list">
+        {page.data.sections.map((section) => <article class="content-item"><h2>{section.title}</h2><p>{section.body}</p></article>)}
+      </div>
+    </div>
+  </section>}
+  {isContact && <section class="contact-section">
+    <div class="container contact-panel">
+      <div>
+        <p>{locale === 'en' ? 'Email us directly' : 'Napíšte nám priamo'}</p>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+      <a class="button" href={`mailto:${site.email}?subject=${encodeURIComponent(t.discuss)}`}>{t.discuss}</a>
+    </div>
+  </section>}
+</BaseLayout>
+
+<style>
+  .contact-section { padding: 0 0 var(--section); }
+  .contact-panel { display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: 38px 44px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--ice); }
+  .contact-panel p { margin: 0 0 4px; color: var(--muted); font-size: .82rem; }
+  .contact-panel div > a { color: var(--ink); font-family: var(--display); font-size: clamp(1.8rem, 4vw, 3.6rem); }
+  @media (max-width: 650px) { .contact-panel { align-items: flex-start; flex-direction: column; padding: 28px 24px; } }
+</style>

@@ -1,0 +1,26 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { findTranslation } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('insights', ({ data }) => data.locale === 'en' && data.status === 'published');
+  return entries.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const all = await getCollection('insights');
+const translation = findTranslation(all, entry);
+const { Content } = await render(entry);
+---
+<BaseLayout locale="en" title={`${entry.data.title} | LUDA.AI`} description={entry.data.description} alternatePath={translation ? `/sk/insights/${translation.data.slug}/` : '/sk/insights/'} article>
+  <header class="page-hero">
+    <div class="container">
+      <p class="article-label">Insights</p>
+      <h1 class="display title-lg">{entry.data.title}</h1>
+      <p class="lede">{entry.data.description}</p>
+    </div>
+  </header>
+  <section class="section"><article class="container article-body"><Content /></article></section>
+</BaseLayout>
+<style>.article-label { color: var(--blue); font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; }</style>

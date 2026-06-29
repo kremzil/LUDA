@@ -1,0 +1,20 @@
+{
+  "locale": "en",
+  "translationKey": "privacy",
+  "seo": {
+    "title": "Privacy | LUDA.AI",
+    "description": "Privacy information for the LUDA.AI website."
+  },
+  "title": "Privacy",
+  "intro": "This website does not use analytics cookies or a contact form. When you contact LUDA.AI by email, your email provider and ours process the message according to their respective terms.",
+  "sections": [
+    {
+      "title": "Website operation",
+      "body": "Basic technical logs may be processed by the hosting provider for security and reliable delivery. This draft notice must be reviewed before publication and completed with the company’s registered details."
+    },
+    {
+      "title": "Contact",
+      "body": "For privacy questions, contact hello@luda.ai."
+    }
+  ]
+}

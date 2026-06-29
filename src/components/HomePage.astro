@@ -1,0 +1,212 @@
+---
+import { Image } from 'astro:assets';
+import { Blocks, FileStack, Sparkles } from '@lucide/astro';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import heroImage from '../assets/images/hero-clear-counsel.png';
+import aboutImage from '../assets/images/about-clear-counsel.png';
+import insightImage from '../assets/images/insight-clarity.png';
+import { labels, localPath, site, type Locale } from '../lib/site';
+
+const { locale, page, insights } = Astro.props as {
+  locale: Locale;
+  page: CollectionEntry<'pages'>;
+  insights: CollectionEntry<'insights'>[];
+};
+const hero = page.data.hero!;
+const t = labels[locale];
+const copy = locale === 'en' ? {
+  problemsTitle: 'What we solve',
+  problemsIntro: 'Legal teams face growing complexity. We bring order to information and introduce technology that supports the way you work.',
+  problems: [
+    ['Fragmented workflows', 'Disconnected tools and manual handoffs slow teams down and create risk.'],
+    ['Document overload', 'Too much information in too many places makes it hard to find, trust and act.'],
+    ['Responsible AI adoption', 'The potential is clear, but adopting AI safely and effectively is a challenge.'],
+  ],
+  servicesTitle: 'Services',
+  services: [
+    ['Legal workflow automation', 'We automate repetitive processes, standardise operations and connect systems so your team can focus on high-value work.'],
+    ['Document & knowledge systems', 'We design structures and tools for organising, finding and using legal knowledge with confidence.'],
+    ['AI readiness & implementation', 'We help you evaluate, prepare and implement AI solutions that deliver measurable value safely and ethically.'],
+  ],
+  workTitle: 'How we work',
+  workIntro: 'A practical, collaborative approach that brings clarity at every step.',
+  work: [
+    ['Understand', 'We listen and map your challenges, processes and goals in context.'],
+    ['Design', 'We shape a simple, practical solution built for the real world.'],
+    ['Deliver', 'We implement, integrate and support adoption for lasting results.'],
+  ],
+  aboutTitle: 'About LUDA.AI',
+  aboutBody: 'We are a European team combining legal understanding with technology expertise. Our work is grounded in partnership, discretion and a focus on outcomes that matter.',
+  aboutLink: 'Learn more about us',
+  insightsIntro: 'Ideas and perspectives on legal operations, technology and AI.',
+  contactTitle: 'Let’s make legal work better.',
+  contactBody: 'Tell us about your goals and we’ll find the right way forward.',
+  contactCta: 'Start a conversation',
+} : {
+  problemsTitle: 'Čo riešime',
+  problemsIntro: 'Právne tímy čelia rastúcej zložitosti. Prinášame poriadok do informácií a technológie, ktoré podporujú spôsob vašej práce.',
+  problems: [
+    ['Roztrieštené procesy', 'Nespojené nástroje a manuálne odovzdávanie spomaľujú tímy a vytvárajú riziká.'],
+    ['Prebytok dokumentov', 'Informácie na mnohých miestach sa ťažko hľadajú, overujú a používajú.'],
+    ['Zodpovedné zavádzanie AI', 'Potenciál je zrejmý, no bezpečné a účinné používanie AI je výzvou.'],
+  ],
+  servicesTitle: 'Služby',
+  services: [
+    ['Automatizácia právnych procesov', 'Automatizujeme opakovanú prácu, štandardizujeme postupy a prepájame systémy.'],
+    ['Dokumentové a znalostné systémy', 'Navrhujeme štruktúry a nástroje na organizovanie, vyhľadávanie a spoľahlivé používanie právnych znalostí.'],
+    ['Pripravenosť na AI a implementácia', 'Pomáhame vyhodnotiť, pripraviť a zaviesť AI riešenia bezpečne, eticky a s merateľným prínosom.'],
+  ],
+  workTitle: 'Ako pracujeme',
+  workIntro: 'Praktický a partnerský prístup, ktorý prináša prehľad v každom kroku.',
+  work: [
+    ['Pochopiť', 'Počúvame a mapujeme vaše výzvy, procesy a ciele v kontexte.'],
+    ['Navrhnúť', 'Vytvoríme jednoduché a praktické riešenie pre reálnu prevádzku.'],
+    ['Dodať', 'Implementujeme, integrujeme a podporujeme prijatie riešenia.'],
+  ],
+  aboutTitle: 'O LUDA.AI',
+  aboutBody: 'Sme európsky tím, ktorý spája porozumenie právu s technologickou expertízou. Pracujeme partnersky, diskrétne a so zameraním na výsledky.',
+  aboutLink: 'Viac o nás',
+  insightsIntro: 'Názory a praktické pohľady na právne operácie, technológie a AI.',
+  contactTitle: 'Zlepšime právnu prácu.',
+  contactBody: 'Povedzte nám o svojich cieľoch a nájdeme vhodnú cestu.',
+  contactCta: 'Začať rozhovor',
+};
+const icons = [Blocks, FileStack, Sparkles];
+const alternatePath = locale === 'en' ? '/sk/' : '/';
+---
+
+<BaseLayout locale={locale} title={page.data.seo.title} description={page.data.seo.description} alternatePath={alternatePath}>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1 class="display title-xl">{hero.title}</h1>
+        <p>{hero.intro}</p>
+        <div class="hero-actions">
+          <a class="button" href={`mailto:${site.email}?subject=${encodeURIComponent(t.discuss)}`}>{hero.primaryCta}</a>
+          <a class="text-link" href="#services">{hero.secondaryCta}</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <Image src={heroImage} alt="" widths={[640, 960, 1280]} sizes="(max-width: 800px) 100vw, 56vw" loading="eager" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <h2 class="display title-md">{copy.problemsTitle}</h2>
+        <p>{copy.problemsIntro}</p>
+      </div>
+      <div class="rule-grid">
+        {copy.problems.map(([title, body], index) => {
+          const Icon = icons[index];
+          return <article class="rule-card"><Icon size={28} /><h3>{title}</h3><p>{body}</p></article>;
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="section service-band">
+    <div class="container">
+      <h2 class="display title-md section-title">{copy.servicesTitle}</h2>
+      <div class="rule-grid">
+        {copy.services.map(([title, body], index) => {
+          const Icon = icons[index];
+          return <article class="rule-card"><Icon size={30} /><h3>{title}</h3><p>{body}</p><a class="text-link small-link" href={localPath(locale, 'services')}>{locale === 'en' ? 'Read more' : 'Viac'}</a></article>;
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container process-grid">
+      <div>
+        <h2 class="display title-md">{copy.workTitle}</h2>
+        <p>{copy.workIntro}</p>
+      </div>
+      <div class="steps">
+        {copy.work.map(([title, body], index) => <article><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container about-grid">
+      <div class="about-copy">
+        <h2 class="display title-md">{copy.aboutTitle}</h2>
+        <p>{copy.aboutBody}</p>
+        <a class="text-link" href={localPath(locale, 'about')}>{copy.aboutLink}</a>
+      </div>
+      <Image class="about-image" src={aboutImage} alt="" widths={[640, 960, 1280]} sizes="(max-width: 800px) 100vw, 60vw" />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container insights-grid">
+      <div>
+        <h2 class="display title-md">{t.insights}</h2>
+        <p>{copy.insightsIntro}</p>
+      </div>
+      <div class="insight-list">
+        {insights.slice(0, 2).map((entry) => <article>
+          <a href={localPath(locale, `insights/${entry.data.slug}`)}>
+            <Image src={insightImage} alt="" widths={[480, 720]} sizes="(max-width: 800px) 100vw, 32vw" />
+            <h3>{entry.data.title}</h3>
+            <span class="text-link">{t.readArticle}</span>
+          </a>
+        </article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-wrap">
+    <div class="container contact-band">
+      <div><h2 class="display">{copy.contactTitle}</h2><p>{copy.contactBody}</p></div>
+      <a class="button" href={`mailto:${site.email}?subject=${encodeURIComponent(t.discuss)}`}>{copy.contactCta}</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { min-height: 680px; display: grid; align-items: center; overflow: hidden; border-bottom: 1px solid var(--line); }
+  .hero-grid { display: grid; grid-template-columns: .9fr 1.2fr; align-items: center; gap: 20px; }
+  .hero-copy { position: relative; z-index: 2; padding-block: 80px; }
+  .hero-copy p { max-width: 530px; margin: 28px 0 0; color: var(--muted); font-size: 1.16rem; }
+  .hero-actions { display: flex; align-items: center; gap: 30px; margin-top: 34px; }
+  .hero-media { width: calc(100% + 100px); margin-left: -70px; }
+  .hero-media :global(img) { width: 100%; mix-blend-mode: multiply; mask-image: linear-gradient(90deg, transparent 0, #000 16%, #000 100%); }
+  .section-title { margin-bottom: 58px; }
+  .service-band { background: linear-gradient(180deg, rgba(245,249,253,.7), white); }
+  .small-link { margin-top: 28px; font-size: .8rem; }
+  .process-grid { display: grid; grid-template-columns: .75fr 1.6fr; gap: 72px; }
+  .process-grid > div:first-child p, .insights-grid > div:first-child p, .about-copy p { color: var(--muted); }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .steps article { padding: 0 30px 10px; border-left: 1px solid var(--line); }
+  .steps span { color: #72a3da; font-family: var(--display); font-size: 2.5rem; }
+  .steps h3 { margin: 22px 0 12px; color: var(--ink); font-family: var(--display); font-size: 1.85rem; font-weight: 400; }
+  .steps p { color: var(--muted); font-size: .9rem; }
+  .about-grid { display: grid; grid-template-columns: .72fr 1.55fr; align-items: center; gap: 64px; }
+  .about-copy p { margin: 26px 0; }
+  .about-grid :global(.about-image) { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); }
+  .insights-grid { display: grid; grid-template-columns: .65fr 1.75fr; gap: 72px; }
+  .insight-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  .insight-list :global(img) { aspect-ratio: 16 / 9; width: 100%; object-fit: cover; border: 1px solid var(--line); border-radius: 12px; }
+  .insight-list h3 { min-height: 2.4em; margin: 18px 0 10px; color: var(--ink); font-family: var(--display); font-size: 1.35rem; font-weight: 400; line-height: 1.16; }
+  .contact-wrap { padding: 0 0 70px; }
+  .contact-band { display: flex; justify-content: space-between; align-items: center; gap: 30px; padding: 36px 48px; border: 1px solid #c8dcef; border-radius: var(--radius); background: linear-gradient(100deg, #f0f6fc, #fff); }
+  .contact-band h2 { font-size: clamp(2rem, 3.2vw, 3.2rem); }
+  .contact-band p { margin: 4px 0 0; color: var(--muted); }
+  @media (max-width: 920px) {
+    .hero { min-height: auto; padding-top: 24px; }
+    .hero-grid, .process-grid, .about-grid, .insights-grid { grid-template-columns: 1fr; gap: 44px; }
+    .hero-copy { padding: 50px 0 0; }
+    .hero-media { width: calc(100% + 70px); margin: -25px -35px 0; }
+    .hero-media :global(img) { mask-image: linear-gradient(180deg, transparent 0, #000 18%); }
+    .steps { grid-template-columns: 1fr; }
+    .steps article { padding: 26px 0; border-left: 0; border-top: 1px solid var(--line); }
+    .insight-list { grid-template-columns: 1fr; }
+    .contact-band { align-items: flex-start; flex-direction: column; padding: 30px 26px; }
+  }
+</style>

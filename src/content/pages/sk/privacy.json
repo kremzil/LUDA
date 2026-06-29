@@ -1,0 +1,20 @@
+{
+  "locale": "sk",
+  "translationKey": "privacy",
+  "seo": {
+    "title": "Ochrana súkromia | LUDA.AI",
+    "description": "Informácie o ochrane súkromia na webovej stránke LUDA.AI."
+  },
+  "title": "Ochrana súkromia",
+  "intro": "Táto webová stránka nepoužíva analytické cookies ani kontaktný formulár. Pri kontakte e-mailom spracúva správu váš poskytovateľ e-mailu a poskytovateľ LUDA.AI podľa svojich podmienok.",
+  "sections": [
+    {
+      "title": "Prevádzka webu",
+      "body": "Poskytovateľ hostingu môže spracúvať základné technické záznamy na účely bezpečnosti a spoľahlivého doručovania. Tento návrh je potrebné pred zverejnením právne skontrolovať a doplniť o sídlo a firemné údaje."
+    },
+    {
+      "title": "Kontakt",
+      "body": "Otázky týkajúce sa súkromia posielajte na hello@luda.ai."
+    }
+  ]
+}

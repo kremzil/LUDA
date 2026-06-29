@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import insightImage from '../assets/images/insight-clarity.png';
+import { labels, localPath, type Locale } from '../lib/site';
+
+const { locale, entries } = Astro.props as { locale: Locale; entries: CollectionEntry<'insights'>[] };
+const t = labels[locale];
+const title = locale === 'en' ? 'Ideas for better legal work.' : 'Myšlienky pre lepšiu právnu prácu.';
+const intro = locale === 'en'
+  ? 'Practical perspectives on legal operations, knowledge systems, technology and responsible AI.'
+  : 'Praktické pohľady na právne operácie, znalostné systémy, technológie a zodpovednú AI.';
+---
+
+<BaseLayout locale={locale} title={`${t.insights} | LUDA.AI`} description={intro} alternatePath={locale === 'en' ? '/sk/insights/' : '/insights/'}>
+  <header class="page-hero">
+    <div class="container">
+      <h1 class="display title-lg">{title}</h1>
+      <p class="lede">{intro}</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="container articles">
+      {entries.map((entry) => <article>
+        <a href={localPath(locale, `insights/${entry.data.slug}`)}>
+          <Image src={insightImage} alt="" widths={[540, 860]} sizes="(max-width: 800px) 100vw, 50vw" />
+          <p class="date">{entry.data.publishedAt.toLocaleDateString(locale, { month: 'long', year: 'numeric' })}</p>
+          <h2>{entry.data.title}</h2>
+          <p>{entry.data.description}</p>
+          <span class="text-link">{t.readArticle}</span>
+        </a>
+      </article>)}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .articles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 64px 32px; }
+  article :global(img) { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--line); border-radius: 14px; }
+  .date { margin: 20px 0 8px; color: var(--blue); font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; }
+  h2 { max-width: 18ch; margin: 0 0 12px; color: var(--ink); font-family: var(--display); font-size: clamp(2rem, 3vw, 3rem); font-weight: 400; line-height: 1.04; }
+  article p:not(.date) { max-width: 55ch; color: var(--muted); }
+  @media (max-width: 800px) { .articles { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,14 @@
+{
+  "locale": "sk",
+  "translationKey": "home",
+  "seo": {
+    "title": "LUDA.AI | Digitálne riešenia pre právo",
+    "description": "Praktické digitálne systémy pre advokátske kancelárie a interné právne tímy."
+  },
+  "hero": {
+    "title": "Digitálne riešenia pre právo.",
+    "intro": "Navrhujeme praktické digitálne systémy, ktoré prinášajú do právnej práce viac prehľadu, rýchlosti a jednoduchosti.",
+    "primaryCta": "Prediskutujme váš projekt",
+    "secondaryCta": "Pozrieť služby"
+  }
+}
