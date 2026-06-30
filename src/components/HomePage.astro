@@ -169,13 +169,30 @@ const alternatePath = locale === 'en' ? '/sk/' : '/';
   </section>
 </BaseLayout>
 
+<script>
+  const media = document.querySelector<HTMLElement>('.hero-media');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (media && !reduce.matches) {
+    let ticking = false;
+    const update = () => {
+      const offset = Math.min(window.scrollY, 600) * 0.08;
+      media.style.transform = `translate3d(0, ${offset}px, 0)`;
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  }
+</script>
+
 <style>
   .hero { min-height: 680px; display: grid; align-items: center; overflow: hidden; border-bottom: 1px solid var(--line); }
   .hero-grid { display: grid; grid-template-columns: .9fr 1.2fr; align-items: center; gap: 20px; }
   .hero-copy { position: relative; z-index: 2; padding-block: 80px; }
   .hero-copy p { max-width: 530px; margin: 28px 0 0; color: var(--muted); font-size: 1.16rem; }
   .hero-actions { display: flex; align-items: center; gap: 30px; margin-top: 34px; }
-  .hero-media { width: calc(100% + 100px); margin-left: -70px; }
+  .hero-media { width: calc(100% + 100px); margin-left: -70px; will-change: transform; }
   .hero-media :global(img) { width: 100%; mix-blend-mode: multiply; mask-image: linear-gradient(90deg, transparent 0, #000 16%, #000 100%); }
   .section-title { margin-bottom: 58px; }
   .service-band { background: linear-gradient(180deg, rgba(245,249,253,.7), white); }

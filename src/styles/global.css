@@ -109,10 +109,13 @@ button { font: inherit; }
   min-height: 260px;
   padding: 34px 32px 24px;
   border-right: 1px solid var(--line);
+  transition: transform .3s ease, background .3s ease;
 }
 .rule-card:first-child { padding-left: 0; }
 .rule-card:last-child { border-right: 0; }
-.rule-card svg { color: var(--blue); stroke-width: 1.25; }
+.rule-card svg { color: var(--blue); stroke-width: 1.25; transition: transform .3s ease; }
+.rule-card:hover { transform: translateY(-4px); }
+.rule-card:hover svg { transform: scale(1.08); }
 .rule-card h3 {
   margin: 28px 0 12px;
   color: var(--ink);
@@ -136,6 +139,32 @@ button { font: inherit; }
 .skip-link { position: fixed; top: 8px; left: 8px; z-index: 100; transform: translateY(-140%); padding: 10px 16px; background: var(--ink); color: white; }
 .skip-link:focus { transform: translateY(0); }
 :focus-visible { outline: 3px solid #64a9ee; outline-offset: 4px; }
+
+/* Scroll progress indicator */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 200;
+  height: 4px;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--blue), var(--ink));
+  pointer-events: none;
+}
+@media (min-width: 921px) {
+  .scroll-progress { display: none; }
+}
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .7s cubic-bezier(.22, .61, .36, 1), transform .7s cubic-bezier(.22, .61, .36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+.rule-grid .reveal:nth-child(2) { transition-delay: .08s; }
+.rule-grid .reveal:nth-child(3) { transition-delay: .16s; }
 @media (max-width: 920px) {
   :root { --page: min(100% - 32px, 680px); --section: 72px; }
   .title-xl { font-size: clamp(3.6rem, 17vw, 5.4rem); }
@@ -146,4 +175,6 @@ button { font: inherit; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .scroll-progress { display: none; }
 }

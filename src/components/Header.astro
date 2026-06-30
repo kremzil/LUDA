@@ -4,16 +4,28 @@ import { labels, localPath, type Locale } from '../lib/site';
 
 const { locale } = Astro.props as { locale: Locale };
 const t = labels[locale];
+
+const current = Astro.url.pathname;
+const navItems = [
+  { key: 'services', label: t.services },
+  { key: 'about', label: t.about },
+  { key: 'insights', label: t.insights },
+  { key: 'contact', label: t.contact },
+];
+const isActive = (key: string) => current.startsWith(localPath(locale, key));
 ---
 
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href={localPath(locale)} aria-label="LUDA.AI home">LUDA.AI</a>
     <nav class="desktop-nav" aria-label="Primary navigation">
-      <a href={localPath(locale, 'services')}>{t.services}</a>
-      <a href={localPath(locale, 'about')}>{t.about}</a>
-      <a href={localPath(locale, 'insights')}>{t.insights}</a>
-      <a href={localPath(locale, 'contact')}>{t.contact}</a>
+      {navItems.map((item) => (
+        <a
+          href={localPath(locale, item.key)}
+          class:list={[{ active: isActive(item.key) }]}
+          aria-current={isActive(item.key) ? 'page' : undefined}
+        >{item.label}</a>
+      ))}
     </nav>
     <div class="header-actions">
       <a class="language" href={t.languageHref} hreflang={t.language.toLowerCase()}>{t.language}</a>
@@ -25,10 +37,13 @@ const t = labels[locale];
     </div>
   </div>
   <nav id="mobile-menu" class="mobile-nav" aria-label="Mobile navigation">
-    <a href={localPath(locale, 'services')}>{t.services}</a>
-    <a href={localPath(locale, 'about')}>{t.about}</a>
-    <a href={localPath(locale, 'insights')}>{t.insights}</a>
-    <a href={localPath(locale, 'contact')}>{t.contact}</a>
+    {navItems.map((item) => (
+      <a
+        href={localPath(locale, item.key)}
+        class:list={[{ active: isActive(item.key) }]}
+        aria-current={isActive(item.key) ? 'page' : undefined}
+      >{item.label}</a>
+    ))}
     <a href={`mailto:hello@luda.ai?subject=${encodeURIComponent(t.discuss)}`}>{t.discuss}</a>
   </nav>
 </header>
@@ -41,15 +56,44 @@ const t = labels[locale];
     button.setAttribute('aria-expanded', String(!open));
     menu?.toggleAttribute('data-open', !open);
   });
+
+  const header = document.querySelector<HTMLElement>('.site-header');
+  if (header) {
+    let lastY = window.scrollY;
+    let upDistance = 0;
+    let ticking = false;
+    const update = () => {
+      const y = window.scrollY;
+      header.toggleAttribute('data-scrolled', y > 8);
+      const menuOpen = menu?.hasAttribute('data-open');
+      if (y < lastY) {
+        upDistance += lastY - y;
+        if (upDistance > 60 || y < 120) header.removeAttribute('data-hidden');
+      } else if (y > lastY) {
+        upDistance = 0;
+        if (!menuOpen && y > 120) header.setAttribute('data-hidden', '');
+      }
+      lastY = y;
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  }
 </script>
 
 <style>
-  .site-header { position: relative; z-index: 20; border-bottom: 1px solid rgba(216, 228, 240, .72); background: rgba(255,255,255,.82); backdrop-filter: blur(16px); }
+  .site-header { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid rgba(216, 228, 240, 0); background: rgba(255,255,255,.55); backdrop-filter: blur(16px); transition: transform .35s ease, background .3s ease, border-color .3s ease, box-shadow .3s ease; }
+  .site-header[data-hidden] { transform: translateY(-100%); }
+  .site-header[data-scrolled] { border-bottom-color: rgba(216, 228, 240, .85); background: rgba(255,255,255,.9); box-shadow: 0 8px 30px rgba(6, 41, 86, .06); }
   .header-inner { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; min-height: 82px; }
   .brand { color: var(--ink); font-family: var(--display); font-size: 1.85rem; font-weight: 500; letter-spacing: -.04em; }
   .desktop-nav { display: flex; gap: 36px; color: #24354b; font-size: .9rem; }
-  .desktop-nav a, .language { transition: color .2s ease; }
+  .desktop-nav a, .language { position: relative; transition: color .2s ease; }
   .desktop-nav a:hover, .language:hover { color: var(--blue); }
+  .desktop-nav a.active { color: var(--ink); }
+  .desktop-nav a.active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; border-radius: 2px; background: var(--blue); }
   .header-actions { display: flex; justify-content: flex-end; align-items: center; gap: 22px; }
   .language { font-size: .78rem; font-weight: 600; letter-spacing: .08em; }
   .desktop-cta { min-height: 42px; padding-inline: 17px; font-size: .82rem; }
@@ -64,5 +108,6 @@ const t = labels[locale];
     .menu-button { display: grid; place-items: center; padding: 8px; }
     .mobile-nav[data-open] { display: flex; position: absolute; inset: 70px 0 auto; flex-direction: column; gap: 0; padding: 12px 16px 22px; border-bottom: 1px solid var(--line); background: white; box-shadow: 0 18px 40px rgba(6, 41, 86, .08); }
     .mobile-nav a { padding: 15px 8px; border-bottom: 1px solid var(--line); color: var(--ink); }
+    .mobile-nav a.active { color: var(--blue); font-weight: 600; }
   }
 </style>
